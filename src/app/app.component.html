@@ -1,12 +1,29 @@
 <section class="container-fluid d-flex flex-column gap-2">
-  <nav *isLogged>
-    <mat-toolbar class="d-flex justify-content-around rounded fixed">
-      <button class="btn btn-primary" routerLink="/students">Studenti</button>
-      <button class="btn btn-primary" routerLink="/clienti">Clienti</button>
-      <button class="btn btn-primary" routerLink="/fatture">Fatture</button>
-      <button class="btn btn-primary" routerLink="/count">Counter</button>
-      <button class="btn btn-danger" (click)="logout()">Logout</button>
-    </mat-toolbar>
+  <nav *isLogged class="d-flex navbar navbar-expand-md navbar-dark bg-dark rounded">
+    <a class="navbar-brand" href="#">Academy Project</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-2">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/students">Studenti</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/clienti">Clienti</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/fatture">Fatture</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/count">Counter</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
   </nav>
 
   <router-outlet />

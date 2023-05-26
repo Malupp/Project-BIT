@@ -1,11 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-
-import { catchError, concatMap, map, of } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FattureForm } from "src/app/features/fatture/models/fatture-form.interface";
-
 import { CustomerService } from "src/app/features/customers/providers/services/customer-http.service";
 import { FattureService } from "src/app/features/fatture/services/fatture.service";
 import { Customer } from "src/app/features/customers/models/customers.interface";
@@ -17,32 +13,24 @@ import { Fatture } from "../../models/fatture.interface";
   templateUrl: "./fatture-form.component.html",
   styleUrls: ["./fatture-form.component.scss"],
 })
-export class FattureFormComponent {
+export class FattureFormComponent implements OnInit {
+  @Input() id: string | undefined;
+  @Input() fatture: Array<Fatture> | undefined;
   form!: FormGroup<FattureForm>;
   clienti!: Array<Customer>;
-  constructor(private readonly route: ActivatedRoute, private readonly fattureService: FattureService, private readonly customerService: CustomerService) {
-    this.customerService.getClienti().subscribe({ next: (clienti) => (this.clienti = clienti) });
-
-    this.route.paramMap
-      .pipe(
-        concatMap((paramMap: ParamMap) => {
-          if (paramMap.has("id")) {
-            const id = parseInt(paramMap.get("id")!);
-            return this.fattureService.getFatture().pipe(
-              map((fatture: Array<Fatture>) => fatture.find((c) => c.idFattura === id)),
-              catchError((error: Error) => of(undefined))
-            );
-          } else {
-            return of(undefined);
-          }
-        }),
-        takeUntilDestroyed()
-      )
-      .subscribe({
-        next: (fattura: Fatture | undefined) => {
-          this.form = this.createForm(fattura);
-        },
-      });
+  constructor(private readonly fattureService: FattureService, private readonly customerService: CustomerService) {
+    this.customerService
+      .getClienti()
+      .pipe(takeUntilDestroyed())
+      .subscribe({ next: (clienti) => (this.clienti = clienti) });
+  }
+  ngOnInit(): void {
+    if (this.id) {
+      const fattura = this.fatture?.find((c) => c.idFattura === +this.id!);
+      this.form = this.createForm(fattura);
+    } else {
+      this.form = this.createForm();
+    }
   }
 
   createForm(fattura?: Fatture): FormGroup<FattureForm> {
@@ -100,7 +88,18 @@ export class FattureFormComponent {
   }
 
   saveFattura() {
-    console.log(this.form.value);
-    this.fattureService.postFattura(this.form.value as Required<Fatture>).subscribe({ next: (c) => console.log(c) });
+    if (this.form.value.idFattura) {
+      this.fattureService.updateFattura(this.form.value as Required<Fatture>).subscribe({
+        next: (b) => {
+          alert("Fattura aggiornata con successo");
+        },
+      });
+    } else {
+      this.fattureService.postFattura(this.form.value as Required<Fatture>).subscribe({
+        next: (b) => {
+          alert("Fattura inserita con successo");
+        },
+      });
+    }
   }
 }
