@@ -1,0 +1,150 @@
+<form [formGroup]="form" *ngIf="form">
+    <div class="d-flex justify-content-center">
+        <div class="form-group" style="width: 300px;">
+            <h5>Personal Information</h5>
+            <div formGroupName="personal_information">
+                <ng-container>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" class="form-control" formControlName="name" />
+
+                    <label for="surname">Surname:</label>
+                    <input type="text" name="surname" class="form-control" formControlName="surname" />
+
+                    <label for="gender">Gender:</label>
+                    <select name="gender" class="form-control" formControlName="gender">
+                        <option value="other">Choose</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                    <label for="age">Age:</label>
+                    <input type="number" name="age" class="form-control" formControlName="age" />
+                </ng-container>
+            </div>
+
+            <h5> Location </h5>
+            <div formGroupName="location">
+                <ng-container>
+                    <label for="address">Address:</label>
+                    <input type="text" name="address" class="form-control" formControlName="address" />
+
+                    <label for="city">City:</label>
+                    <input type="text" name="city" class="form-control" formControlName="city" />
+
+                    <label for="postalCode">Postal Code:</label>
+                    <input type="text" name="postalCode" class="form-control" formControlName="postalCode" />
+
+                    <label for="state">State:</label>
+                    <input type="text" name="state" class="form-control" formControlName="state" />
+
+                    <label for="country">Country:</label>
+                    <input type="text" name="country" class="form-control" formControlName="country" />
+                </ng-container>
+            </div>
+
+            <h5>Spoken Languages</h5>
+            <div formArrayName="knownLanguages">
+                <ng-container *ngFor="let language of knownLanguages.controls; let index = index"
+                    [formGroupName]="index">
+                    <div class="d-flex gap-3">
+                        <div class="d-flex flex-column">
+                            <label for="name">Language:</label>
+                            <input type="text" name="name" class="form-control" formControlName="name" />
+                            <label for="icon">Icon:</label>
+                            <input type="text" name="icon" class="form-control" formControlName="icon" />
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-danger" (click)="removeLanguage(index)">X</button>
+                        </div>
+                    </div>
+                </ng-container>
+                <button (click)="addMoreLanguages()" class="btn btn-primary mt-3">Aggiungi Lingua</button>
+            </div>
+
+            <h5>Pets</h5>
+            <div formArrayName="pets">
+                <ng-container *ngFor="let pet of pets.controls; let index = index" [formGroupName]="index">
+                    <label for="animalName">Animal name:</label>
+                    <input type="text" name="animalName" class="form-control" formControlName="name" />
+                    <label for="type">Animal type:</label>
+                    <select name="gender" class="form-control" formControlName="gender">
+                        <option value="other">Choose</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <label for="breed">Breed:</label>
+                    <select name="type" class="form-control" formControlName="breed">
+                        <option value="male">Dog</option>
+                        <option value="female">Cat</option>
+                        <option value="female">Rabbit</option>
+                        <option value="female">Snake</option>
+                        <option value="female">Mouse</option>
+                        <option value="female">Hamster</option>
+                    </select>
+                    <label for="age">Age:</label>
+                    <input type="number" name="age" class="form-control" formControlName="age" />
+                </ng-container>
+                <button (click)="addMorePets()" class="btn btn-primary mt-3">Aggiungi Animale</button>
+            </div>
+
+            <h5>Hobbies</h5>
+            <div formArrayName="hobbies">
+                <ng-container *ngFor="let hobby of hobbies.controls; let index = index" [formGroupName]="index">
+                    <div class="d-flex gap-3">
+                        <div class="d-flex flex-column">
+                            <label for="name">Hobby:</label>
+                            <input type="text" name="name" class="form-control" formControlName="name" />
+                            <label for="icon">Icon:</label>
+                            <input type="text" name="icon" class="form-control" formControlName="icon" />
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-danger" (click)="removeHobby(index)">X</button>
+                        </div>
+                    </div>
+                </ng-container>
+                <button (click)="addMoreHobbies()" class="btn btn-primary mt-3">Aggiungi Hobby</button>
+            </div>
+
+            <h5>Job Experiences</h5>
+            <div formArrayName="jobExperiences">
+                <ng-container *ngFor="let experience of jobExperiences.controls; let index = index"
+                    [formGroupName]="index">
+                    <label for="nameJob"> Job:</label>
+                    <input type="text" name="nameJob" class="form-control" formControlName="name" />
+
+                    <label for="company"> Company:</label>
+                    <input type="text" name="company" class="form-control" formControlName="company" />
+
+                    <label for="description">Description:</label>
+                    <textarea name="description" class="form-control" formControlName="description"></textarea>
+
+                    <label for="start">Start date:</label>
+                    <input type="date" name="start" class="form-control" formControlName="startDate">
+
+                    <label for="end"> End Date:</label>
+                    <input type="date" name="end" class="form-control" formControlName="endDate" />
+                    <h6>Tags</h6>
+                    <div formArrayName="tags">
+                        <div *ngFor="let tag of experience.controls.tags.controls; let i = index"
+                            class="d-flex gap-3 mb-2">
+                            <div class="d-flex flex-column">
+                                <label for="nameTag">Tag</label>
+                                <input type="text" name="nameTag" class="form-control" [formControlName]="i" />
+                            </div>
+                            <div class="d-flex align-items-end">
+                                <button class="btn btn-danger" (click)="removeTag(experience, i)">X</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button (click)="addMoreTags(experience)" class="btn btn-primary mt-3">Aggiungi Tag</button>
+                </ng-container>
+                <button (click)="addMoreJobs()" class="btn btn-primary mt-3">Aggiungi Esperienza Lavorativa</button>
+            </div>
+
+            <div class="d-flex justify-content-between gap-2 pt-3 pb-3">
+                <button type="submit" class="btn btn-primary" (click)="handleSaveStudent()">Salva</button>
+                <button class="btn btn-danger" routerLink="/students">Ritorna a Studenti</button>
+            </div>
+        </div>
+    </div>
+</form>

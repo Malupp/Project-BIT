@@ -1,0 +1,12 @@
+<div class="h-100">
+    <div class="d-flex flex-column align-items-center gap-2">
+        <span class="fs-1">{{ count }}</span>
+        <div class="d-flex flex-row gap-3">
+            <button class="btn btn-primary" (click)="onIncrement()" [disabled]="count >= 10"
+                style="width: 50px;">+</button>
+            <button class="btn btn-danger" (click)="onDecrement()" [disabled]="count <= 0"
+                style="width: 50px;">-</button>
+        </div>
+        <div *ngIf="count >= 10" class="text-warning bg-dark rounded-3 p-2">Hai raggiunto il limite!</div>
+    </div>
+</div>

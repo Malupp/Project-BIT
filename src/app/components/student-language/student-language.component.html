@@ -1,0 +1,10 @@
+<div>
+    Hi! My spoken languages are:
+    <ul style="padding-left: initial;">
+        <li *ngFor="let language of languages;" style="list-style: none; padding-left: initial">
+            <i class="fi fi-{{language.icon}} me-3"></i>
+            {{language?.name }}
+        </li>
+    </ul>
+
+</div>

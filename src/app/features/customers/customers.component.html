@@ -1,0 +1,62 @@
+<section class="container-fluid vh-100">
+    <div class="d-flex gap-3 justify-content-between">
+        <div class="d-flex gap-3 mt-3">
+            <button class="btn btn-primary" routerLink="/students">Torna Home</button>
+            <button class="btn btn-danger" (click)="getClienti()">Ritorna Info clienti</button>
+        </div>
+        <div class="d-flex gap-3 mt-3">
+            <div class="input-group mb-3">
+                <span class="input-group-text">€</span>
+                <input type="number" class="form-control" [(ngModel)]="amount"
+                    aria-label="Amount (to the nearest euro)">
+                <button class="btn btn-primary rounded" (click)="getByAmount(amount)">Get By
+                    Amount</button>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <input type="text" class="form-control" [(ngModel)]="name" placeholder="Username" aria-label="Username"
+                    aria-describedby="basic-addon1">
+                <button class="btn btn-primary rounded" (click)="getByName(name)">Get By
+                    Name</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="d-flex flex-column align-items-center justify-content-center">
+        <h1>INFORMAZIONI CLIENTI</h1>
+        <table class="table table-striped border p-0">
+            <thead>
+                <tr>
+                    <th scope="col">idCliente</th>
+                    <th scope="col">RagioneSociale</th>
+                    <th scope="col">Fatturato</th>
+                    <th scope="col">PartitaIva</th>
+                    <th scope="col">TipoCliente</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Indirizzo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let customer of customers">
+                    <tr>
+                        <th scope="row">{{customer.idCliente}}</th>
+                        <td>{{customer.ragioneSociale}}</td>
+                        <td>{{customer.fatturato}}</td>
+                        <td>{{customer.partitaIva}}</td>
+                        <td>{{customer.tipoCliente}}</td>
+                        <td>{{customer.email}}</td>
+                        <td>{{customer.telefono}}</td>
+                        <td>{{customer.indirizzo | customerAddress }}</td>
+                        <td><button class="btn btn-success"
+                                routerLink="/customers/{{customer.idCliente}}">Modifica</button></td>
+                        <td><button class="btn btn-danger" (click)="deleteCustomer(customer.idCliente)">Elimina</button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-primary" routerLink="/customer-form">Aggiungi Cliente</button>
+</section>

@@ -1,0 +1,54 @@
+<section class="container-fluid vh-100">
+    <div class="d-flex gap-3 justify-content-between">
+        <div class="d-flex gap-3 mt-3">
+            <button class="btn btn-primary" routerLink="/students">Torna Home</button>
+            <button class="btn btn-danger" (click)="getFatture()">Ritorna Info clienti</button>
+            <button class="btn btn-primary" routerLink="/fatture-form">Inserisci Fattura</button>
+        </div>
+        <div class="d-flex gap-3 mt-3">
+            <div class="input-group mb-3">
+                <span class="input-group-text">€</span>
+                <input type="number" class="form-control" [(ngModel)]="min">
+                <input type="number" class="form-control" [(ngModel)]="max">
+                <button class="btn btn-primary rounded" (click)="getFattureByRange(min, max)">Get By
+                    Range</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="d-flex flex-column align-items-center justify-content-center text-center">
+        <h1>INFORMAZIONI FATTURE</h1>
+        <table class="table table-striped border p-0">
+            <thead>
+                <tr>
+                    <th scope="col">idFattura</th>
+                    <th scope="col">numero</th>
+                    <th scope="col">importo</th>
+                    <th scope="col">cliente</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let fattura of fatture">
+                    <tr>
+                        <th scope="row">{{fattura?.idFattura}}</th>
+                        <td>{{fattura?.numero}}</td>
+                        <td>{{fattura?.importo}}</td>
+                        <td>{{fattura?.cliente?.ragioneSociale}}, {{fattura?.cliente?.tipoCliente}}</td>
+                        <td><button class="btn btn-success"
+                                routerLink="/fatture-form/{{fattura.idFattura}}">Modifica</button></td>
+                        <td><button class="btn btn-danger" (click)="deleteFattura(fattura.idFattura)">Elimina</button>
+                        </td>
+                        <td><button class="btn btn-primary" (click)="getFattureByCliente(fattura.cliente)"> Get
+                                Fattura
+                                By
+                                Customer</button></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</section>
