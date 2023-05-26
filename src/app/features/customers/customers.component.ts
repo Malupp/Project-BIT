@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Customer } from 'src/app/models/customers.interface';
-import { CustomerService } from 'src/app/services/customer.service';
+import { Component, OnInit } from "@angular/core";
+import { Customer } from "src/app/features/customers/models/customers.interface";
+import { CustomerService } from "src/app/features/customers/providers/services/customer-http.service";
 
 @Component({
-  selector: 'academy-customers',
-  templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.scss'],
+  selector: "academy-customers",
+  templateUrl: "./customers.component.html",
+  styleUrls: ["./customers.component.scss"],
 })
 export class CustomersComponent {
   customers!: Array<Customer>;
@@ -13,7 +13,7 @@ export class CustomersComponent {
     this.getClienti();
   }
 
-  name: string = '';
+  name: string = "";
   amount: number = 0;
 
   getClienti(): void {
@@ -37,7 +37,7 @@ export class CustomersComponent {
     console.log(id);
     this.customersService.deleteCliente(id).subscribe({
       next: () => {
-        console.log('cancellazione eseguita con successo');
+        console.log("cancellazione eseguita con successo");
         this.getClienti();
       },
     });

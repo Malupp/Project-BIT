@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Customer } from 'src/app/models/customers.interface';
-import { Fatture } from 'src/app/models/fatture.interface';
-import { FattureService } from 'src/app/services/fatture.service';
+import { Component, OnInit } from "@angular/core";
+import { Customer } from "src/app/features/customers/models/customers.interface";
+import { FattureService } from "src/app/features/fatture/services/fatture.service";
+import { Fatture } from "./models/fatture.interface";
 
 @Component({
-  selector: 'academy-fatture',
-  templateUrl: './fatture.component.html',
-  styleUrls: ['./fatture.component.scss'],
+  selector: "academy-fatture",
+  templateUrl: "./fatture.component.html",
+  styleUrls: ["./fatture.component.scss"],
 })
 export class FattureComponent implements OnInit {
   fatture!: Array<Fatture>;

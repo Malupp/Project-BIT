@@ -3,7 +3,7 @@
         <div class="d-flex gap-3 mt-3">
             <button class="btn btn-primary" routerLink="/students">Torna Home</button>
             <button class="btn btn-danger" (click)="getFatture()">Ritorna Info clienti</button>
-            <button class="btn btn-primary" routerLink="/fatture-form">Inserisci Fattura</button>
+            <button class="btn btn-primary" routerLink="/fatture/fatture-form">Inserisci Fattura</button>
         </div>
         <div class="d-flex gap-3 mt-3">
             <div class="input-group mb-3">
@@ -39,7 +39,7 @@
                         <td>{{fattura?.importo}}</td>
                         <td>{{fattura?.cliente?.ragioneSociale}}, {{fattura?.cliente?.tipoCliente}}</td>
                         <td><button class="btn btn-success"
-                                routerLink="/fatture-form/{{fattura.idFattura}}">Modifica</button></td>
+                                routerLink="/fatture/fatture-form/{{fattura.idFattura}}">Modifica</button></td>
                         <td><button class="btn btn-danger" (click)="deleteFattura(fattura.idFattura)">Elimina</button>
                         </td>
                         <td><button class="btn btn-primary" (click)="getFattureByCliente(fattura.cliente)"> Get

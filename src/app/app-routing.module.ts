@@ -1,14 +1,7 @@
-import { NgModule, inject } from '@angular/core';
-import { CanActivateFn, RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { StudentFormComponent } from './components/student-form/student-form.component';
-import { StudentsComponent } from './components/students/students.component';
-import { CustomersComponent } from './features/customers/customers.component';
-import { FattureComponent } from './features/fatture/fatture.component';
-import { CustomerFormComponent } from './features/customers/components/customer-form/customer-form.component';
-import { FattureFormComponent } from './features/fatture/components/fatture-form/fatture-form.component';
-import { LoggedGuard } from './services/guards/logged.guard';
-import { CountComponent } from './components/count/count.component';
+import { NgModule, inject } from "@angular/core";
+import { CanActivateFn, RouterModule, Routes } from "@angular/router";
+import { LoggedGuard } from "./services/guards/logged.guard";
+import { CountComponent } from "./components/count/count.component";
 
 const loggedIn: CanActivateFn = (route) => {
   return inject(LoggedGuard).canActivate();
@@ -16,18 +9,27 @@ const loggedIn: CanActivateFn = (route) => {
 
 // l'ordine delle rotte è fondamentale
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'count', component: CountComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'students', component: StudentsComponent, canActivate: [loggedIn] },
-  { path: 'students/:id', component: StudentFormComponent },
-  { path: 'new-student', component: StudentFormComponent },
-  { path: 'customers', component: CustomersComponent },
-  { path: 'customer-form', component: CustomerFormComponent },
-  { path: 'customers/:id', component: CustomerFormComponent },
-  { path: 'fatture', component: FattureComponent },
-  { path: 'fatture-form', component: FattureFormComponent },
-  { path: 'fatture-form/:id', component: FattureFormComponent },
+  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: "count", component: CountComponent },
+  {
+    path: "login",
+    loadComponent: () => import("./login/login.component").then((c) => c.LoginComponent),
+  },
+  {
+    path: "clienti",
+    loadChildren: () => import("./features/customers/customers.module").then((m) => m.CustomersModule),
+    canActivate: [loggedIn],
+  },
+  {
+    path: "fatture",
+    loadChildren: () => import("./features/fatture/fatture.module").then((m) => m.FattureModule),
+    canActivate: [loggedIn],
+  },
+  {
+    path: "students",
+    loadChildren: () => import("./features/students/students.module").then((m) => m.StudentModule),
+    canActivate: [loggedIn],
+  },
 
   // default route dopo le rotte non ha bisogno del pathMatch ma bisogna fare attenzione con le wildcard
   // { path: '', redirectTo: 'login' },

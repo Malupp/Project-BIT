@@ -50,7 +50,7 @@
                         <td>{{customer.telefono}}</td>
                         <td>{{customer.indirizzo | customerAddress }}</td>
                         <td><button class="btn btn-success"
-                                routerLink="/customers/{{customer.idCliente}}">Modifica</button></td>
+                                routerLink="/client/modificaCliente/{{customer.idCliente}}">Modifica</button></td>
                         <td><button class="btn btn-danger" (click)="deleteCustomer(customer.idCliente)">Elimina</button>
                         </td>
                     </tr>
@@ -58,5 +58,5 @@
             </tbody>
         </table>
     </div>
-    <button class="btn btn-primary" routerLink="/customer-form">Aggiungi Cliente</button>
+    <button class="btn btn-primary" routerLink="/clienti/inserireCliente">Aggiungi Cliente</button>
 </section>
