@@ -1,6 +1,6 @@
 <div class="d-flex flex-column justify-content-center align-items-center vh-100">
     <form [formGroup]="form" class="rounded border-primary" style="padding: 10rem; background-color: aquamarine;">
-        <h4> Login to the platform</h4>
+        <h4> Register to the platform</h4>
         <div class="d-flex flex-column gap-3" style="width: 250px;">
             <div style="width: 250px;">
                 <label for="username">Username</label>
@@ -10,11 +10,24 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" formControlName="password" class="form-control" />
             </div>
+            <div style="width: 250px;">
+                <label for="confermaPassword">Conferma Password</label>
+                <input type="password" name="confermaPassword" formControlName="confermaPassword"
+                    class="form-control" />
+            </div>
+            <div style="width: 250px;">
+                <label for="email">Email</label>
+                <input type="text" name="email" formControlName="email" class="form-control" />
+            </div>
+            <div style="width: 250px;">
+                <label for="confermaEmail">Conferma Email</label>
+                <input type="text" name="confermaEmail" formControlName="confermaEmail" class="form-control" />
+            </div>
             <div class="d-flex justify-content-around align-items-end gap-3">
                 <button class="btn btn-primary" style="width: 100px;" (click)="login()">Login</button>
                 <div class="d-flex flex-column align-items-center">
-                    <label>Non hai un account?</label>
-                    <button class="btn btn-primary" style="width: 100px;" (click)="register()">
+
+                    <button class="btn btn-primary" style="width: 100px;" (click)="registerUser()">
                         Registrati</button>
                 </div>
             </div>

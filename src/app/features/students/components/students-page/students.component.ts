@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { StudentService } from "src/app/features/students/services/student.service";
 import { Student } from "../../models/student.class";
 import { STUDENTS } from "../../data/students";
+import { StorageService } from "src/app/services/storage.service";
 
 @Component({
   selector: "academy-students",
@@ -12,13 +13,13 @@ import { STUDENTS } from "../../data/students";
 export class StudentsComponent {
   students: Array<Student> | null = null;
 
-  constructor(private readonly router: Router, private readonly studentService: StudentService) {
+  constructor(private readonly router: Router, private readonly studentService: StudentService, private readonly storageService: StorageService) {
     // this.students = this.studentService.students$.getValue();
-    this.studentService.students$.subscribe({
-      next: (c) => {
-        this.students = c;
-      },
-    });
+    // this.studentService.students$.subscribe({
+    //   next: (c) => {
+    //     this.students = c;
+    //   },
+    // });
   }
 
   addStudent() {
@@ -26,11 +27,16 @@ export class StudentsComponent {
   }
 
   fill() {
-    this.students = structuredClone(STUDENTS.sort((a, b) => a.age - b.age));
+    this.studentService.students$.subscribe({
+      next: (c) => {
+        this.students = c;
+      },
+    });
   }
 
   empty() {
-    this.students = [];
+    this.storageService.removeItem("students");
+    window.location.reload();
   }
 
   remove(student: Student): void {

@@ -12,8 +12,17 @@ const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "count", component: CountComponent },
   {
+    path: "register",
+    loadComponent: () => import("./register/register.component").then((c) => c.RegisterComponent),
+  },
+  {
     path: "login",
     loadComponent: () => import("./login/login.component").then((c) => c.LoginComponent),
+  },
+  {
+    path: "userslist",
+    loadChildren: () => import("./features/userslist/userslist.module").then((c) => c.CustomersModule),
+    canActivate: [loggedIn],
   },
   {
     path: "clienti",

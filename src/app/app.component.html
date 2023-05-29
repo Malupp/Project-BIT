@@ -1,30 +1,5 @@
 <section class="container-fluid d-flex flex-column gap-2">
-  <nav *isLogged class="d-flex navbar navbar-expand-md navbar-dark bg-dark rounded">
-    <a class="navbar-brand" href="#">Academy Project</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav gap-2">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/students">Studenti</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/clienti">Clienti</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/fatture">Fatture</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/count">Counter</a>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-danger" (click)="logout()">Logout</button>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <academy-navbar *isLogged />
 
   <router-outlet />
 </section>

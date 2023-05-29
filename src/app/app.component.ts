@@ -10,11 +10,7 @@ import { LoginService } from "./login/services/login.service";
 })
 export class AppComponent {
   loading$: Observable<boolean>;
-  constructor(private readonly utils: UtilsService, private readonly logoutService: LoginService) {
+  constructor(private readonly utils: UtilsService) {
     this.loading$ = this.utils.loading$.pipe(delay(100));
-  }
-
-  logout() {
-    this.logoutService.logout();
   }
 }

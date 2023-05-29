@@ -134,12 +134,6 @@ export class StudentFormComponent {
     }
   }
 
-  // insertStudente() {
-  //   const studenti = JSON.parse(localStorage.getItem('students')!);
-  //   studenti.push(this.form.value);
-  //   localStorage.setItem('students', JSON.stringify(studenti));
-  // }
-
   removeTag(experienceControl: FormGroup<StudentFormJobExperience>, i: number): void {
     const tags: FormArray<FormControl<string>> = experienceControl.get("tags") as FormArray<FormControl<string>>;
     tags?.removeAt(i);

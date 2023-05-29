@@ -11,14 +11,18 @@ import { DelayInterceptor } from "./providers/delay.interceptor";
 import { LoggedGuard } from "./services/guards/logged.guard";
 import { isLoggedDirective } from "./directives/isLogged.directive";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { AdminGuard } from "./services/guards/admin.guard";
+import { isGuardedDirective } from "./directives/isGuarded.directive";
 
 @NgModule({
-  declarations: [AppComponent, CountComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, MatProgressSpinnerModule, MatToolbarModule, isLoggedDirective, BrowserAnimationsModule],
+  declarations: [AppComponent, CountComponent, NavbarComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, MatProgressSpinnerModule, MatToolbarModule, isLoggedDirective, isGuardedDirective, BrowserAnimationsModule],
   providers: [
     // L'ORDINE DEGLI INTERCEPTOR è FONDAMENTALE
     // provide DI tokens
     LoggedGuard,
+    AdminGuard,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: DelayInterceptor, multi: true },
     // Auth Key interceptor
